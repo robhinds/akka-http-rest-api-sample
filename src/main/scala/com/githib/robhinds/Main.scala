@@ -4,9 +4,9 @@ import akka.actor.ActorSystem
 import akka.event.{Logging, LoggingAdapter}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 import akka.stream.ActorMaterializer
 import scala.concurrent.ExecutionContext
-import spray.json._
 
 
 object Main extends App {
@@ -18,7 +18,7 @@ object Main extends App {
     path("hello") {
       get {
         complete {
-          "<h1>Say hello to akka-http</h1>"
+          Map("red" -> "#FF0000", "azure" -> "#F0FFFF")
         }
       }
     }
