@@ -5,6 +5,8 @@ scalaVersion := "2.11.8"
 
 resolvers += "spray repo" at "http://repo.spray.io"
 
+enablePlugins(JavaAppPackaging)
+
 libraryDependencies ++= {
   val akkaVersion = "2.4.7"
 
