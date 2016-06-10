@@ -1,6 +1,9 @@
 package com.githib.robhinds.routing
 
-trait Routes extends ColourRoutes {
-  val routes = 
-    colourRoutes 
+import akka.http.scaladsl.server.Directives._
+
+trait Routes extends ColourRoutes with ShapeRoutes {
+  val allRoutes = 
+    colourRoutes ~ 
+    shapeRoutes
 }
