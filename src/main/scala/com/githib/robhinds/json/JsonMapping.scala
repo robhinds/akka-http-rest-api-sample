@@ -1,4 +1,4 @@
-package com.githib.robhinds.routing
+package com.githib.robhinds.json
 
 import com.githib.robhinds.domain._
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
