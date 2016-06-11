@@ -15,6 +15,6 @@ object Main extends App with Routes {
   protected val log: LoggingAdapter = Logging( system, getClass )
  
   log.info( "starting server" )
-  Http().bindAndHandle( logRequestResult("log",Logging.InfoLevel)( allRoutes ), java.net.InetAddress.getLoopbackAddress.getHostAddress(), 8080 )
+  Http().bindAndHandle( logRequestResult("log",Logging.InfoLevel)( allRoutes ), "0.0.0.0", 8080 )
   log.info( "server started, awaiting requests.." )
 }
