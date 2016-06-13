@@ -1,4 +1,4 @@
-package com.githib.robhinds.domain
+package com.github.robhinds.domain
 
 case class Colour(
   name: String, 

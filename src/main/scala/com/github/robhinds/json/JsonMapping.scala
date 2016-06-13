@@ -1,6 +1,6 @@
-package com.githib.robhinds.json
+package com.github.robhinds.json
 
-import com.githib.robhinds.domain._
+import com.github.robhinds.domain._
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import spray.json._
 

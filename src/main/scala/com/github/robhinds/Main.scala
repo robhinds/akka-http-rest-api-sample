@@ -1,4 +1,4 @@
-package com.githib.robhinds
+package com.github.robhinds
 
 import routing.Routes
 import akka.actor.ActorSystem

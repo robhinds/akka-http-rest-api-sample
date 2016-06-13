@@ -1,8 +1,8 @@
-package com.githib.robhinds.routing
+package com.github.robhinds.routing
 
-import com.githib.robhinds.domain.Colour
+import com.github.robhinds.domain.Colour
 import akka.http.scaladsl.server.Directives._
-import com.githib.robhinds.json.JsonMapping
+import com.github.robhinds.json.JsonMapping
 
 trait ColourRoutes extends JsonMapping {
 

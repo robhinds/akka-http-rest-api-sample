@@ -1,4 +1,4 @@
-package com.githib.robhinds.routing
+package com.github.robhinds.routing
 
 import akka.http.scaladsl.server.Directives._
 

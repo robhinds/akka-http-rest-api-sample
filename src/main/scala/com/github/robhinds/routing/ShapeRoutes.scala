@@ -1,8 +1,8 @@
-package com.githib.robhinds.routing
+package com.github.robhinds.routing
 
-import com.githib.robhinds.domain.Shape
+import com.github.robhinds.domain.Shape
 import akka.http.scaladsl.server.Directives._
-import com.githib.robhinds.json.JsonMapping
+import com.github.robhinds.json.JsonMapping
 
 trait ShapeRoutes extends JsonMapping {
 
