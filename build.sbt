@@ -6,10 +6,18 @@ organization := "com.github.robhinds"
 
 version := "1.0"
 
-lazy val sampleCassandraAkkaApp = ( project in file(".") ).aggregate( webApi, dataAccess )
+lazy val sampleCassandraAkkaApp = ( project in file(".") ).
+  aggregate( webApi, dataAccess ).
+  settings(
+    run := {
+      ( run in webApi in Compile ).evaluated
+    }
+  )
 
-lazy val webApi = (project in file("web-api")).settings(commonSettings: _*)
-  .settings(
+
+lazy val webApi = (project in file("web-api")).
+  settings(commonSettings: _*).
+  settings(
     libraryDependencies ++= 
       Seq(
         "com.typesafe.akka" %% "akka-actor"                             % akkaVersion,
@@ -23,8 +31,9 @@ lazy val webApi = (project in file("web-api")).settings(commonSettings: _*)
       )
     )
 
-lazy val dataAccess = (project in file("data-access")).settings(commonSettings: _*)
-  .settings(
+lazy val dataAccess = (project in file("data-access")).
+  settings(commonSettings: _*).
+  settings(
     libraryDependencies ++=
       Seq(
         "com.websudos"  %% "phantom-dsl"  % phantomVersion
