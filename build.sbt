@@ -1,44 +1,24 @@
-import sbt.Keys._
+import Dependencies._
 
 name := "sample-cassandra-akka-app"
-
 organization := "com.github.robhinds"
-
 version := "1.0"
 
-lazy val sampleCassandraAkkaApp = ( project in file(".") ).
-  aggregate( webApi, dataAccess ).
-  settings(
+lazy val root = ( project in file(".") )
+  .aggregate( webApi, dataAccess )
+  .settings(
     run := {
       ( run in webApi in Compile ).evaluated
     }
   )
 
+lazy val webApi = (project in file("web-api"))
+  .settings(commonSettings: _*)
+  .settings( libraryDependencies ++= webApiDependencies )
 
-lazy val webApi = (project in file("web-api")).
-  settings(commonSettings: _*).
-  settings(
-    libraryDependencies ++= 
-      Seq(
-        "com.typesafe.akka" %% "akka-actor"                             % akkaVersion,
-        "com.typesafe.akka" %% "akka-stream"                            % akkaVersion,
-        "com.typesafe.akka" %% "akka-http-core"                         % akkaVersion,
-        "com.typesafe.akka" %% "akka-http-experimental"                 % akkaVersion,
-        "com.typesafe.akka" %% "akka-http-testkit"                      % akkaVersion,
-        "com.typesafe.akka" %% "akka-http-spray-json-experimental"      % akkaVersion,
-        "org.scalatest"     %% "scalatest"                              % "2.2.5" % "test",
-        "com.typesafe.akka" %% "akka-testkit"                           % akkaVersion % "test"
-      )
-    )
-
-lazy val dataAccess = (project in file("data-access")).
-  settings(commonSettings: _*).
-  settings(
-    libraryDependencies ++=
-      Seq(
-        "com.websudos"  %% "phantom-dsl"  % phantomVersion
-      )
-    )
+lazy val dataAccess = (project in file("data-access"))
+  .settings(commonSettings: _*)
+  .settings( libraryDependencies ++= dataAccessDependencies )
 
 
 lazy val commonSettings = Seq(
@@ -58,6 +38,3 @@ lazy val commonSettings = Seq(
     "spray repo"                       at "http://repo.spray.io"
   )
 )
-
-val phantomVersion = "1.26.6"
-val akkaVersion = "2.4.7"
