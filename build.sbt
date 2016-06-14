@@ -13,6 +13,7 @@ lazy val root = ( project in file(".") )
   )
 
 lazy val webApi = (project in file("web-api"))
+  .enablePlugins(JavaAppPackaging)
   .settings(commonSettings: _*)
   .settings( libraryDependencies ++= webApiDependencies )
 
