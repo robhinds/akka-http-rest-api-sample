@@ -8,20 +8,33 @@ object Dependencies {
   
   //Libraries
   val phantomDsl = "com.websudos"  %% "phantom-dsl"                                  % phantomVersion
+  val phantomStreams = "com.websudos" %%  "phantom-reactivestreams"                  % phantomVersion
+  val akkaSlf4j = "com.typesafe.akka"   %%  "akka-slf4j"                             % akkaVersion
   val akkaActor = "com.typesafe.akka" %% "akka-actor"                                % akkaVersion
   val akkaStream = "com.typesafe.akka" %% "akka-stream"                              % akkaVersion
+  val akkaStreamTestkit = "com.typesafe.akka"   %%  "akka-stream-testkit"            % akkaVersion
   val akkaHttpCore = "com.typesafe.akka" %% "akka-http-core"                         % akkaVersion
   val akkaHttp = "com.typesafe.akka" %% "akka-http-experimental"                     % akkaVersion
   val akkaHttpTestkit = "com.typesafe.akka" %% "akka-http-testkit"                   % akkaVersion
   val akkaHttpSprayJson = "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaVersion
-  val scalaTest = "org.scalatest"     %% "scalatest"                                 % "2.2.5" % "test"
   val akkaTestkit = "com.typesafe.akka" %% "akka-testkit"                            % akkaVersion % "test"
+  val scalaTest = "org.scalatest"     %% "scalatest"                                 % "2.2.5" % "test"
+
 
   //Dependencies
-  val dataAccessDependencies = Seq( phantomDsl )
+  val dataAccessDependencies = Seq( 
+      phantomDsl,
+      scalaTest,
+      akkaTestkit,
+      akkaStreamTestkit,
+      akkaActor,
+      akkaStream,
+      akkaSlf4j
+  )
   val webApiDependencies = Seq(
     akkaActor,
     akkaStream,
+    akkaSlf4j,
     akkaHttpCore,
     akkaHttp,
     akkaHttpTestkit,
