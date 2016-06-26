@@ -5,25 +5,21 @@ import java.net.InetAddress
 import com.typesafe.config.ConfigFactory
 import com.websudos.phantom.connectors.{ContactPoint, ContactPoints}
 
+import com.github.robhinds.utils.CassandraConfig
+
 import scala.collection.JavaConversions._
 
-object Connector {
+object Connector extends CassandraConfig {
   val config = ConfigFactory.load()
 
-  val hosts = config.getStringList("cassandra.host")
   val inets = hosts.map(InetAddress.getByName)
-
-  val keyspace: String = config.getString("cassandra.keyspace")
 
   /**
     * Create a connector with the ability to connects to
     * multiple hosts in a secured cluster
     */
   lazy val connector = ContactPoints(hosts).withClusterBuilder(
-    _.withCredentials(
-      config.getString("cassandra.username"),
-      config.getString("cassandra.password")
-    )
+    _.withCredentials( username, password )
   ).keySpace(keyspace)
 
   /**
