@@ -8,17 +8,17 @@ import com.websudos.phantom.dsl._
 /**
  * Based on https://github.com/thiagoandrade6/cassandra-phantom examples
  */
-class SongsDatabase(override val connector: KeySpaceDef) extends DatabaseImpl(connector) {
+class UserDatabase(override val connector: KeySpaceDef) extends DatabaseImpl(connector) {
   object userModel extends UserModel with connector.Connector
 }
 
 /**
   * This is the production database, it connects to a secured cluster with multiple contact points
   */
-object ProductionDb extends SongsDatabase(connector)
+object ProductionDb extends UserDatabase(connector)
 
 trait ProductionDatabaseProvider {
-  def database: SongsDatabase
+  def database: UserDatabase
 }
 
 trait ProductionDatabase extends ProductionDatabaseProvider {
@@ -29,10 +29,10 @@ trait ProductionDatabase extends ProductionDatabaseProvider {
   * Thanks for the Phantom plugin, you can start an embedded cassandra in memory,
   * in this case we are using it for tests
   */
-object EmbeddedDb extends SongsDatabase(testConnector)
+object EmbeddedDb extends UserDatabase(testConnector)
 
 trait EmbeddedDatabaseProvider {
-  def database: SongsDatabase
+  def database: UserDatabase
 }
 
 trait EmbeddedDatabase extends EmbeddedDatabaseProvider {
