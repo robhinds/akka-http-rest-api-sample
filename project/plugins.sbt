@@ -7,3 +7,5 @@ resolvers ++= Seq(
 
 // And finally the plugin dependency itself
 addSbtPlugin("com.websudos" %% "phantom-sbt" % "1.22.0")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.1.1")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "4.0.0")
