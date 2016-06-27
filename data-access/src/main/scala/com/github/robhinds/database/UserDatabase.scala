@@ -1,21 +1,15 @@
-package com.cassandra.phantom.modeling.database
+package com.github.robhinds.database
 
-import ccom.cassandra.phantom.modeling.connector.Connector._
-import com.cassandra.phantom.modeling.model.{ConcreteSongsByArtistModel, ConcreteSongsModel}
+import com.github.robhinds.database.model.UserModel
+import com.github.robhinds.connector.Connector._
 import com.websudos.phantom.db.DatabaseImpl
 import com.websudos.phantom.dsl._
 
 /**
-  * Created by thiago on 4/13/16.
-  *
-  * This is our Database object that wraps our two existing tables,
-  * giving the ability to receive different connectors
-  * for example: One for production and other for testing
-  *
-  */
+ * Based on https://github.com/thiagoandrade6/cassandra-phantom examples
+ */
 class SongsDatabase(override val connector: KeySpaceDef) extends DatabaseImpl(connector) {
-  object songsModel extends ConcreteSongsModel with connector.Connector
-  object songsByArtistsModel extends ConcreteSongsByArtistModel with connector.Connector
+  object userModel extends UserModel with connector.Connector
 }
 
 /**
