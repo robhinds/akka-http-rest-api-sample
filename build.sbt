@@ -12,14 +12,15 @@ lazy val root = ( project in file(".") )
     }
   )
 
-lazy val webApi = (project in file("web-api"))
-  .enablePlugins(JavaAppPackaging)
-  .settings(commonSettings: _*)
-  .settings( libraryDependencies ++= webApiDependencies )
-
 lazy val dataAccess = (project in file("data-access"))
   .settings(commonSettings: _*)
   .settings( libraryDependencies ++= dataAccessDependencies )
+  
+lazy val webApi = (project in file("web-api"))
+  .dependsOn(dataAccess)
+  .enablePlugins(JavaAppPackaging)
+  .settings(commonSettings: _*)
+  .settings( libraryDependencies ++= webApiDependencies )
 
 
 lazy val commonSettings = Seq(
