@@ -29,7 +29,6 @@ class UserServiceTest extends CassandraSpec with EmbeddedDatabase with Connector
     *
     */
   override def beforeAll(): Unit = {
-    Await.result(database.autodrop().future(), 5.seconds)
     Await.result(database.autocreate().future(), 5.seconds)
   }
 
@@ -51,6 +50,7 @@ class UserServiceTest extends CassandraSpec with EmbeddedDatabase with Connector
     whenReady(future) { result =>
       result isExhausted() shouldBe true
       result wasApplied() shouldBe true
+      this.drop(sample)
     }
   }
   
@@ -65,6 +65,7 @@ class UserServiceTest extends CassandraSpec with EmbeddedDatabase with Connector
 
     whenReady(chain) { res =>
       res shouldBe defined
+      res.value.username shouldEqual sample.username
       this.drop(sample)
     }
   }
@@ -72,24 +73,35 @@ class UserServiceTest extends CassandraSpec with EmbeddedDatabase with Connector
   
   it should "be updated into cassandra" in {
     val sample = gen[User]
-    val updatedUsername = gen[String]
+    val updatedPassword = gen[String]
 
     val chain = for {
       store <- this.store(sample)
       unmodified <- database.userModel.getByUsername(sample.username)
-      store <- this.store(sample.copy(username = updatedUsername))
+      store <- this.store(sample.copy(password = updatedPassword))
       modified <- database.userModel.getByUsername(sample.username)
     } yield (unmodified, modified)
 
     whenReady(chain) {
       case (initial, modified) =>
         initial shouldBe defined
-        initial.value.username shouldEqual sample.username
+        initial.value.password shouldEqual sample.password
 
         modified shouldBe defined
-        modified.value.username shouldEqual updatedUsername
-
+        modified.value.password shouldEqual updatedPassword
+        
         this.drop(modified.get)
     }
   }
+  
+  private def store(user: User): Future[ResultSet] = {
+    for {
+      store <- database.userModel.store(user)
+    } yield store
+  }
+  private def drop(user: User) = {
+    for {
+      drop <- database.userModel.deleteByUsername(user.username)
+    } yield drop
+}
 }

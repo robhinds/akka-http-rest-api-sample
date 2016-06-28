@@ -13,7 +13,7 @@ import scala.concurrent.Future
  */
 trait UserService extends ProductionDatabase {
 
-  def getSongsByUsername(username: String): Future[List[User]] = {
+  def getUserByUsername(username: String): Future[Option[User]] = {
     database.userModel.getByUsername(username)
   }
 

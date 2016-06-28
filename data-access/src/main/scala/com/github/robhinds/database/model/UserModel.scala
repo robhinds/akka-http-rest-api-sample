@@ -14,11 +14,11 @@ import scala.concurrent.Future
   */
 abstract class UserModel extends UserTable with RootConnector {
   
-  def getByUsername(username: String): Future[List[User]] = {
+  def getByUsername(username: String): Future[Option[User]] = {
     select
       .where(_.username eqs username)
       .consistencyLevel_=(ConsistencyLevel.ONE)
-      .fetch()
+      .one()
   }
 
   def store(user: User): Future[ResultSet] = {
@@ -26,6 +26,13 @@ abstract class UserModel extends UserTable with RootConnector {
       .value(_.id, user.id)
       .value(_.username, user.username)
       .value(_.password, user.password)
+      .consistencyLevel_=(ConsistencyLevel.ONE)
+      .future()
+  }
+  
+  def deleteByUsername(username: String): Future[ResultSet] = {
+    delete
+      .where(_.username eqs username)
       .consistencyLevel_=(ConsistencyLevel.ONE)
       .future()
   }
